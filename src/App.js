@@ -1,26 +1,48 @@
-import React from 'react';
+import React,{Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { render } from '@testing-library/react';
+import {CardList} from './components/CardList/CardList.js';
+import {Search} from './components/Search/Search';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+class App extends Component {
+  constructor(){
+    super();
+    this.state ={
+      monsters:[],
+      type:""
+
+    };
+  }
+   
+  componentDidMount(){
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then(response => response.json())
+    .then(data => this.setState({monsters:data}))
+  }
+
+   onInput=(e)=>{
+    this.setState({type:e.target.value});
+  }
+  render(){
+    const{type,monsters}=this.state;
+    const filterstate=monsters.filter(monster =>
+      (monster.name.toLowerCase().includes(type.toLowerCase())
+      ))
+
+  
+
+    return (
+      <div className="App">
+        <h1>Robo</h1>
+        <Search onInput={this.onInput}/>
+        <CardList monsters={filterstate}/>
+      </div>
+    );
+
+  }
+ 
 }
 
 export default App;
