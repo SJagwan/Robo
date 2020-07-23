@@ -1,7 +1,5 @@
 import React,{Component} from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { render } from '@testing-library/react';
 import {CardList} from './components/CardList/CardList.js';
 import {Search} from './components/Search/Search';
 
@@ -35,7 +33,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>Robo</h1>
+        <h1>Search Robo</h1>
         <Search onInput={this.onInput}/>
         <CardList monsters={filterstate}/>
       </div>
